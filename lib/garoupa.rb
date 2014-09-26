@@ -2,6 +2,8 @@ require "garoupa/version"
 
 class Garoupa
 
+  DEFAULT_GROUP_SIZE = 4
+
   def self.make_groups(list, options = {})
     list_items_past_groupmates = past_groupmates(list, options[:past_groups])
     group_structure            = make_empty_group_structure(list.size, options[:target_size])
@@ -28,7 +30,7 @@ class Garoupa
 
   private
   def self.divide_list(list, group_size = nil)
-    list.each_slice(group_size || 4).to_a
+    list.each_slice(group_size || DEFAULT_GROUP_SIZE).to_a
   end
 
   def self.correct_for_group_size_difference(groups, max_difference = nil)
