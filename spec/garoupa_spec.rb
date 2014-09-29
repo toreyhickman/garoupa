@@ -21,6 +21,12 @@ describe Garoupa do
       expect(garoupa_no_options).to be_instance_of Garoupa
     end
 
+    it "places each list item into one group" do
+      list_items_in_groups = garoupa_no_options.groups.flatten
+
+      expect(list_items_in_groups - long_list).to be_empty
+    end
+
     describe "group_sizes" do
       context "no target size given" do
         it "attemtps to make groups of the default group size" do
