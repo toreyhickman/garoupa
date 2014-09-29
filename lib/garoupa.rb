@@ -8,7 +8,8 @@ class Garoupa
     list_items_past_groupmates = past_groupmates(list, options[:past_groups])
     group_structure            = make_empty_group_structure(list.size, options[:target_size])
     corrected_group_structure  = correct_for_group_size_difference(group_structure, options[:max_difference])
-    groups                     = fill_group_structure(group_structure, list.shuffle, list_items_past_groupmates)
+    sorted_list                = sort(list, list_items_past_groupmates)
+    groups                     = fill_group_structure(group_structure, sorted_list, list_items_past_groupmates)
 
     self.new(groups, list, list_items_past_groupmates)
   end
@@ -102,6 +103,17 @@ class Garoupa
     group_with_least_repeats[index_of_nil] = list_item
 
     return nil
+  end
+
+  def self.sort(list, past_groupmates = nil)
+    return list.shuffle unless past_groupmates
+
+    list.shuffle.sort do |item_a, item_b|
+      item_a_number_of_past_groupmates = past_groupmates.fetch(item_a, []).size
+      item_b_number_of_past_groupmates = past_groupmates.fetch(item_b, []).size
+
+      item_b_number_of_past_groupmates <=> item_a_number_of_past_groupmates
+    end
   end
 
   def group_for(list_item)
