@@ -107,9 +107,9 @@ describe Garoupa do
 
   describe ".past_groupmates" do
     let(:list) { [:a, :b, :c, :d] }
-    let(:past_groups) { [[:a, :b], [:a, :c]] }
+    let(:past_groups) { [[:a, :b], [:a, :b], [:a, :c]] }
 
-    it "maps list items to their previous groupmates" do
+    it "maps list items to their unique previous groupmates" do
       past_group_map = Garoupa.past_groupmates(list, past_groups)
 
       expect(past_group_map[:a]).to match_array [:b, :c]

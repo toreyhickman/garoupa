@@ -83,7 +83,7 @@ class Garoupa
     return [] unless past_groups
 
     past_groups = past_groups.select { |group| group.include? element }
-    past_groupmates = past_groups.flatten.reject { |el| el == element }
+    past_groupmates = past_groups.flatten.uniq - [element]
   end
 
   def self.fill_group_structure(group_structure, list, previous_pairs = {})
