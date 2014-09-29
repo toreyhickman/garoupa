@@ -107,4 +107,58 @@ describe Garoupa do
       expect(past_group_map[:d]).to be_empty
     end
   end
+
+  describe "accessor methods" do
+    let(:groups) { :groups_argument }
+    let(:list) { :list_argument }
+    let(:past_groupmates) { :past_groupmates_argument }
+
+    let(:garoupa) { Garoupa.new(groups, list, past_groupmates) }
+
+    it "returns the list" do
+      expect(garoupa.list).to eq list
+    end
+
+    it "returns the groups" do
+      expect(garoupa.groups).to eq groups
+    end
+
+    it "returns the past groupmates" do
+      expect(garoupa.past_groupmates).to eq past_groupmates
+    end
+  end
+
+  describe "#repeat_pairs" do
+    it "returns the repeat pairs for each list item" do
+      expected_repeat_pairs = { :a => [:b],
+                                :b => [:a],
+                                :c => [],
+                                :d => [] }
+
+      expect(garoupa.repeat_pairs).to eq expected_repeat_pairs
+    end
+  end
+
+  describe "#to_json" do
+    it "returns a JSON formatted string" do
+      expect(!!JSON.parse(garoupa.to_json)).to be true
+    end
+
+    it "includes groups, list, past groupmates, and repeat pairs" do
+      expected_json = { :groups          => garoupa.groups,
+                        :list            => garoupa.list,
+                        :past_groupmates => garoupa.past_groupmates,
+                        :repeat_pairs    => garoupa.repeat_pairs }.to_json
+
+      expect(garoupa.to_json).to eq expected_json
+    end
+  end
+
+  describe "#to_s" do
+    it "returns a numbered list of the groups" do
+      expected_string = "1. a, b\n2. c, d"
+
+      expect(garoupa.to_s).to eq expected_string
+    end
+  end
 end

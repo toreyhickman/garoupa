@@ -20,12 +20,29 @@ class Garoupa
   end
 
 
-  attr_reader :groups
+  attr_reader :groups, :list, :past_groupmates
 
   def initialize(groups, list, past_groupmates)
     @groups          = groups
     @list            = list
     @past_groupmates = past_groupmates
+  end
+
+  def repeat_pairs
+    list.each_with_object( Hash.new ) do |list_item, repeat_pairs|
+      repeat_pairs[list_item] = group_for(list_item) & past_groupmates[list_item]
+    end
+  end
+
+  def to_json
+    { :groups          => groups,
+      :list            => list,
+      :past_groupmates => past_groupmates,
+      :repeat_pairs    => repeat_pairs }.to_json
+  end
+
+  def to_s
+    groups.map.with_index(1) { |group, index| "#{index}. " + group.join(", ") }.join("\n")
   end
 
   private
@@ -85,5 +102,9 @@ class Garoupa
     group_with_least_repeats[index_of_nil] = list_item
 
     return nil
+  end
+
+  def group_for(list_item)
+    groups.find { |group| group.include? list_item }
   end
 end
