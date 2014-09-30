@@ -1,4 +1,5 @@
 require "garoupa/version"
+require "garoupa/dependencies"
 
 class Garoupa
 
