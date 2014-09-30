@@ -1,5 +1,7 @@
 # Garoupa
 
+![Travis CI Build Status](https://api.travis-ci.org/toreyhickman/garoupa.svg?branch=master)
+
 Garoupa was written to facilitate the assignment of groups at Dev Bootcamp where students are assigned to weekly groups.  It should be generalizable to other contexts, taking an item list and returning a new Garoupa object with the assigned groups.  Options allow for specifying a target group size, a maximum difference in group sizes if the number of list items is not evenly divisible by the target group size, and providing past groups so that list items can be grouped with new groupmates.
 
 [Garoupa is apparently a Portugese name, from which the name of the grouper fish is believed to be derived](http://en.wikipedia.org/wiki/Grouper#Name_origin).  The things you learn when the desired name for your  gem is taken ...
